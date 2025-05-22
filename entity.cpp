@@ -4,6 +4,8 @@
 #include "bomba.h"
 
 
+
+
 extern Mapa* mapa;
 extern Video* video;
 
@@ -16,6 +18,7 @@ Entity::Entity(int posX, int posY, int w, int h, int vel, int spriteID)
 	_h = h;
 	_vel = vel;
 	_spriteID = spriteID;
+	_life = true;
 }
 
 Entity::~Entity()

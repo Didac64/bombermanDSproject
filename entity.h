@@ -19,6 +19,8 @@ public:
 	void SetPosY(int posY) { _posY = posY; };
 	int GetVel() { return _vel; };
 	int GetSpriteid() { return _spriteID; };
+	bool GetStateLife() { return _life; };
+	void SetStateLife(bool life) { _life = life; };
 
 private:
 	int _w;
@@ -27,5 +29,6 @@ private:
 	int _posY;
 	int _vel;
 	int _spriteID;
+	bool _life;
 };
 

@@ -71,6 +71,11 @@ int Mapa::getlogics(int col, int row, int capa) const
 	return _mmaps.at(capa)[row * _width + col];
 }
 
+bool Mapa::isValid(int px, int py)
+{
+	return px >= 0 && py >= 0 && px < Getwidth() && py < Getheight() && checkcolision(px, py);
+}
+
 void Mapa::createLayer()
 {
 	_mmaps.push_back(vector<int>());

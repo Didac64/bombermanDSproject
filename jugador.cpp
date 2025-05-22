@@ -8,8 +8,6 @@
 
 Jugador::Jugador(int posX, int posY, int w, int h, int vel, int spriteID):Entity(posX, posY, w, h, vel, spriteID)
 {
-	
-
 
 }
 

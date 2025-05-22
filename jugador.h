@@ -19,11 +19,5 @@ public:
 
 private:
 
-	
-	
-
-	
-
-	
 };
 

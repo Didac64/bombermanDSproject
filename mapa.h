@@ -35,6 +35,7 @@ public:
 
 	void AddNewValue(int valor, int capa);
 	int getlogics(int col, int row, int capa)const;
+	bool isValid(int px, int py);
 	void createLayer();
 	
 

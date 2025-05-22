@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 #include "Video.h"
 #include "sound.h"
-//#include "input.h"
+//#include "input.h"  
 #include <string>
 #include "tileset.h"
 #include "mapa.h"
@@ -27,7 +27,10 @@ Camara* camara = new Camara();
 
 int main(int argc, char* args[])
 {
-	bool end = false;
+	
+
+
+	 
 
 	//tailsets & maps
 	vector<int>tileVector;
@@ -47,7 +50,7 @@ int main(int argc, char* args[])
 	int bomb = rm->loadAndGetGraphicID("level/bomba.png");
 
 	Jugador* jugador = new Jugador(48, 36, 18, 29, 6, player);
-	Enemigos* enemigo = new Enemigos(48, 66, 18, 29, 6, enemy);
+	Enemigos* enemigo = new Enemigos(208, 37, 18, 29, 1, enemy);
 	Bombamanager* bombasManager = new Bombamanager(bomb);
 	tinyxml2::XMLElement* map = doc.FirstChildElement("map");
 	//Agafar etiqueta
@@ -73,6 +76,8 @@ int main(int argc, char* args[])
 	tinyxml2::XMLElement* layer = map->FirstChildElement("layer");
 	int numCapa = 0;
 	//-------------
+
+
 	while (layer != NULL)
 	{
 		mapa->createLayer();
@@ -106,21 +111,41 @@ int main(int argc, char* args[])
 	int ScrollVelocidad = 4;
 	
 
-	
-
-	while (true)
+	bool quit = false;
+	while (quit == false)
 	{
-		video->clearScreen();
-		jugador->update(bombasManager);
-		enemigo->update();
-		bombasManager->update();
-		mapa->render(TILEMAP, camara);
-		enemigo->Render();
-		jugador->Render();
-		bombasManager->Render();
-		video->updateScreen();
 
+		while (jugador->GetStateLife() == true)
+		{
+			video->waitTime(16);
+			video->clearScreen();
+			jugador->update(bombasManager);
+			enemigo->update(jugador, bombasManager);
+			bombasManager->update();
+			mapa->render(TILEMAP, camara);
+			enemigo->Render();
+			jugador->Render();
+			bombasManager->Render();
+			video->updateScreen();
+
+		}
+		
+		SDL_Event event;
+		while (SDL_PollEvent(&event))
+		{
+			switch (event.type) {
+			case SDL_KEYDOWN:
+				if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				{
+					quit = true;
+				}
+			}
+		}
+
+		if ()
+		{
+
+		}
 	}
-	
 	return 0;
 }

@@ -13,6 +13,7 @@
 #include"enemigos.h"
 #include "bomba.h"
 #include "bombamanager.h"
+#include "entity.h"
 
 
 
@@ -21,6 +22,7 @@ ResourceManager* rm = ResourceManager::getInstance();
 Video* video = Video::getInstance();
 Mapa* mapa = new Mapa();
 Camara* camara = new Camara();
+
 
 
 
@@ -130,6 +132,8 @@ int main(int argc, char* args[])
 
 		}
 		
+
+
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
@@ -140,11 +144,6 @@ int main(int argc, char* args[])
 					quit = true;
 				}
 			}
-		}
-
-		if ()
-		{
-
 		}
 	}
 	return 0;

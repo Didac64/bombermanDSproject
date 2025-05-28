@@ -5,10 +5,12 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+
 #include <unordered_set>
 
 using namespace std;
 
+/*
 extern Mapa* mapa;
 
 struct node {
@@ -39,31 +41,7 @@ float heuristic(int x1, int y1, int x2, int y2)
 	return abs(x1 - x2) + abs(y1 - y2);
 }
 
-Enemigos::Enemigos(int posX, int posY, int w, int h, int vel, int spriteID) :Entity(posX, posY, w, h, vel, spriteID)
-{
-	_estadoActual = moverse;
-	vista = false;
-}
-
-Enemigos::~Enemigos()
-{
-}
-
-void Enemigos::setState(stats estado, Jugador* player)
-{
-	if (estado == moverse)
-	{
-		
-		if (!_camino.empty())
-		{
-			_camino.clear();
-		}
-		_camino = astar(mapa, GetPosX(), GetPosY(), player->GetPosX(), player->GetPosY());
-		_estadoActual = estado;
-	}
-}
-
-vector<pair<int, int>> astar(Mapa* mapa, int Sx, int Sy, int Ex, int Ey)
+/*vector<pair<int, int>> astar(Mapa* mapa, int Sx, int Sy, int Ex, int Ey)
 {
 	priority_queue<node*, vector<node*>, compare> openSet;
 	vector<vector<bool>>closedSet(mapa->Getheight(), vector<bool>(mapa->Getwidth(), false));
@@ -87,7 +65,9 @@ vector<pair<int, int>> astar(Mapa* mapa, int Sx, int Sy, int Ex, int Ey)
 			return path;
 		}
 
-		closedSet[current->y][current->x] = true;
+		
+
+		//closedSet[current->y][current->x] = true;
 
 		for (int i = 0; i < 4; ++i) {
 			int nx = current->x + dx[i];
@@ -102,7 +82,34 @@ vector<pair<int, int>> astar(Mapa* mapa, int Sx, int Sy, int Ex, int Ey)
 			openSet.push(neighbor);
 		}
 	}
+}*/
+
+Enemigos::Enemigos(int posX, int posY, int w, int h, int vel, int spriteID) :Entity(posX, posY, w, h, vel, spriteID)
+{
+	_estadoActual = moverse;
+	vista = false;
 }
+
+Enemigos::~Enemigos()
+{
+}
+
+/*void Enemigos::setState(stats estado, Jugador* player)
+{
+	if (estado == moverse)
+	{
+		
+		if (!_camino.empty())
+		{
+			_camino.clear();
+		}
+		//_camino = astar(mapa, GetPosX(), GetPosY(), player->GetPosX(), player->GetPosY());
+		
+	}
+	_estadoActual = estado;
+}*/
+
+
 
 void Enemigos::init()
 {
@@ -114,35 +121,37 @@ void Enemigos::update(Jugador* jug, Bombamanager* bm)
 {
 	switch (_estadoActual)
 	{
+	/*case stats::idle:
+		setState(moverse, jug);
+		break;*/
 	case stats::moverse:
-		if (_camino[0].first == GetPosX() && _camino[0].second == GetPosY())
+		
+		/*if (!_camino.empty())
 		{
-			_camino.pop_back();
-		}
-		if (!_camino.empty())
-		{
-			if (_camino[0].first < GetPosX())
-			{
-				Move(Dir::LEFT);
-			}
-			else if (_camino[0].first > GetPosX())
-			{
-				Move(Dir::RIGHT);
-			}
-			else if (_camino[0].second < GetPosY())
-			{
-				Move(Dir::UP);
-			}
-			else if (_camino[0].second > GetPosY())
-			{
-				Move(Dir::DOWN);
-			}
+			
 		}
 		else
 		{
-			setState() = matar;
-		}
+			setState(matar, jug);
+		}*/
+		
 
+		if (jug->GetPosX() < GetPosX())
+		{
+			Move(Dir::LEFT);
+		}
+		else if (jug->GetPosX() > GetPosX())
+		{
+			Move(Dir::RIGHT);
+		}
+		else if (jug->GetPosY() < GetPosY())
+		{
+			Move(Dir::UP);
+		}
+		else if (jug->GetPosY() > GetPosY())
+		{
+			Move(Dir::DOWN);
+		}
 
 		
 
@@ -150,6 +159,7 @@ void Enemigos::update(Jugador* jug, Bombamanager* bm)
 	case stats::matar:
 		if ((jug->GetPosX() >= GetPosX()) || (jug->GetPosX() <= GetPosX()) && (jug->GetPosY() >= GetPosY()) || (jug->GetPosY() <= GetPosY())) {
 			cout << "die" << endl;
+			//dies->SetStateLife(false);
 			_estadoActual = moverse;
 		}
 		

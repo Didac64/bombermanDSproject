@@ -1,11 +1,12 @@
 #pragma once
 #include "entity.h"
 #include "bombamanager.h"
+#include <vector>
 
 
 class Jugador;
 class Mapa;
-
+//idle
 enum stats
 {
 	moverse, matar
@@ -17,13 +18,13 @@ private:
 	
 	bool vista;
 	stats _estadoActual;
-	vector<pair<int, int>> _camino;
+	//std::vector<std::pair<int, int>> _camino;
 
 public:
 	Enemigos(int posX, int posY, int w, int h, int vel, int spriteID);
 	~Enemigos();
 
-	void setState(stats estado, Jugador* player);
+	//void setState(stats estado, Jugador* player);
 
 	void init();
 	void update(Jugador* jug, Bombamanager* bm);

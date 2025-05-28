@@ -4,16 +4,20 @@
 #define SCREEN_HEIGHT 540
 
 #include "ResourceManager.h"
+#include <SDL_ttf.h>
 
 class Video
 {
 private:
     Video(void);
     static Video* video;
+    TTF_Font* font;
 
 public:
    
     ~Video(void);
+    bool init(); // Nueva función de inicialización
+    void drawText(const std::string& message, int x, int y, SDL_Color color);
     static Video* getInstance()
     {
         if (video == NULL)

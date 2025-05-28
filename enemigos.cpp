@@ -159,7 +159,7 @@ void Enemigos::update(Jugador* jug, Bombamanager* bm)
 	case stats::matar:
 		if ((jug->GetPosX() >= GetPosX()) || (jug->GetPosX() <= GetPosX()) && (jug->GetPosY() >= GetPosY()) || (jug->GetPosY() <= GetPosY())) {
 			cout << "die" << endl;
-			//dies->SetStateLife(false);
+			jug->SetStateLife(false);
 			_estadoActual = moverse;
 		}
 		

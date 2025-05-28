@@ -17,6 +17,7 @@
 
 
 
+
 using namespace std;
 ResourceManager* rm = ResourceManager::getInstance();
 Video* video = Video::getInstance();
@@ -40,16 +41,16 @@ int main(int argc, char* args[])
 
 	tinyxml2::XMLDocument doc;
 	//error
-	if (doc.LoadFile("level/nivel.tmx") != tinyxml2::XML_SUCCESS)
+	if (doc.LoadFile("nivel.tmx") != tinyxml2::XML_SUCCESS)
 	{
 		cout << "Error XML: " << doc.ErrorStr();
 		return 1;
 	}
 	//load tilset.png
-	int TILEMAP = rm->loadAndGetGraphicID("level/mapa.png");
-	int player = rm->loadAndGetGraphicID("level/playerUSE.png");
-	int enemy = rm->loadAndGetGraphicID("level/enemigoUSE.png");
-	int bomb = rm->loadAndGetGraphicID("level/bomba.png");
+	int TILEMAP = rm->loadAndGetGraphicID("mapa.png");
+	int player = rm->loadAndGetGraphicID("playerUSE.png");
+	int enemy = rm->loadAndGetGraphicID("enemigoUSE.png");
+	int bomb = rm->loadAndGetGraphicID("bomba.png");
 
 	Jugador* jugador = new Jugador(48, 36, 18, 29, 6, player);
 	Enemigos* enemigo = new Enemigos(208, 37, 18, 29, 1, enemy);
@@ -114,25 +115,46 @@ int main(int argc, char* args[])
 	
 
 	bool quit = false;
-	while (quit == false)
+	while (!quit)
 	{
-
-		while (jugador->GetStateLife() == true)
+		while (jugador->GetStateLife())
 		{
 			video->waitTime(16);
 			video->clearScreen();
+
 			jugador->update(bombasManager);
 			enemigo->update(jugador, bombasManager);
 			bombasManager->update();
+
 			mapa->render(TILEMAP, camara);
 			enemigo->Render();
 			jugador->Render();
 			bombasManager->Render();
+
 			video->updateScreen();
-
 		}
-		
 
+		// ?? jugador murió
+		if (!jugador->GetStateLife()) {
+			std::cout << "GAME OVER" << std::endl;
+			video->clearScreen();
+
+			// Mostrar texto "Game Over"
+			TTF_Font* font = TTF_OpenFont("assets/arial.ttf", 48);
+			SDL_Color white = { 255, 255, 255 };
+			SDL_Surface* surface = TTF_RenderText_Solid(font, "GAME OVER", white);
+			SDL_Texture* texture = SDL_CreateTextureFromSurface(video->gRenderer, surface);
+
+			SDL_Rect rect = { SCREEN_WIDTH / 2 - surface->w / 2, SCREEN_HEIGHT / 2 - surface->h / 2, surface->w, surface->h };
+			SDL_RenderCopy(video->gRenderer, texture, NULL, &rect);
+			SDL_RenderPresent(video->gRenderer);
+
+			SDL_FreeSurface(surface);
+			TTF_CloseFont(font);
+			SDL_Delay(3000);  // mostrar 3 segundos
+			quit = true;
+			break;
+		}
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event))

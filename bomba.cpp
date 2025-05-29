@@ -13,7 +13,7 @@ Bomba::~Bomba()
 void Bomba::update()
 {
 	_time++;
-	if (_time == 3000)
+	if (_time == 100)
 	{
 		_explota = true;
 	}

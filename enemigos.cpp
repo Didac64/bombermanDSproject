@@ -119,6 +119,8 @@ void Enemigos::init()
 
 void Enemigos::update(Jugador* jug, Bombamanager* bm)
 {
+	
+
 	switch (_estadoActual)
 	{
 	/*case stats::idle:
@@ -134,7 +136,6 @@ void Enemigos::update(Jugador* jug, Bombamanager* bm)
 		{
 			setState(matar, jug);
 		}*/
-		
 
 		if (jug->GetPosX() < GetPosX())
 		{
@@ -152,7 +153,10 @@ void Enemigos::update(Jugador* jug, Bombamanager* bm)
 		{
 			Move(Dir::DOWN);
 		}
-
+		else if ((jug->GetPosX() >= GetPosX()) || (jug->GetPosX() <= GetPosX()) && (jug->GetPosY() >= GetPosY()) || (jug->GetPosY() <= GetPosY())) {
+			_estadoActual = matar;
+		}
+		
 		
 
 	break;

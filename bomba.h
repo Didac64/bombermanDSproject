@@ -9,6 +9,8 @@ public:
 	Bomba(int posX, int posY, int spriteID);
 	~Bomba();
 
+	
+	bool GetExplota() { return _explota; }
 	bool GetExplota() const { return _explota; };
 
 	void update();

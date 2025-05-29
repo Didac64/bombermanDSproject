@@ -3,6 +3,7 @@
 #include "bomba.h"
 
 
+class Enemigos;
 
 
 class Bombamanager
@@ -11,7 +12,7 @@ public:
 	Bombamanager(int spriteID);
 	~Bombamanager();
 	void crearbombas(int x, int y);
-	void update();
+	void update(Enemigos* enemigo);
 	void Render();
 	
 private:

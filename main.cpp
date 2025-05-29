@@ -41,16 +41,16 @@ int main(int argc, char* args[])
 
 	tinyxml2::XMLDocument doc;
 	//error
-	if (doc.LoadFile("level/nivel.tmx") != tinyxml2::XML_SUCCESS)
+	if (doc.LoadFile("nivel.tmx") != tinyxml2::XML_SUCCESS)
 	{
 		cout << "Error XML: " << doc.ErrorStr();
 		return 1;
 	}
 	//load tilset.png
-	int TILEMAP = rm->loadAndGetGraphicID("level/mapa.png");
-	int player = rm->loadAndGetGraphicID("level/playerUSE.png");
-	int enemy = rm->loadAndGetGraphicID("level/enemigoUSE.png");
-	int bomb = rm->loadAndGetGraphicID("level/bomba.png");
+	int TILEMAP = rm->loadAndGetGraphicID("mapa.png");
+	int player = rm->loadAndGetGraphicID("playerUSE.png");
+	int enemy = rm->loadAndGetGraphicID("enemigoUSE.png");
+	int bomb = rm->loadAndGetGraphicID("bomba.png");
 
 	Jugador* jugador = new Jugador(48, 36, 18, 29, 6, player);
 	Enemigos* enemigo = new Enemigos(208, 37, 18, 29, 1, enemy);
